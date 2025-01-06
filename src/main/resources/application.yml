@@ -1,0 +1,36 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: base
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password: ""
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-timeout: 30000
+      maximum-pool-size: 10
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      validation-timeout: 5000
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
+security:
+  jwt:
+    secret-key: 3aada41b15fe7d0f6a7e9d2f4c3c5b3b897907fe39830fd910f66b23cca0a9e6
+    expiration-time: 86400000
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security.web.authentication: DEBUG
+    org.springframework.security.oauth2: DEBUG
