@@ -35,47 +35,9 @@ services:
       timeout: 20s
       retries: 10
 
-  keycloak-db:
-    image: mysql:9.1
-    environment:
-      MYSQL_ROOT_PASSWORD: keycloakroot
-      MYSQL_DATABASE: keycloak
-      MYSQL_USER: keycloakuser
-      MYSQL_PASSWORD: keycloakpassword
-    volumes:
-      - keycloak_db_data:/var/lib/mysql
-    networks:
-      - backend
-
-  keycloak:
-    image: quay.io/keycloak/keycloak:26.0.7
-    environment:
-      KEYCLOAK_ADMIN: admin  
-      KEYCLOAK_ADMIN_PASSWORD: adminpassword 
-      DB_VENDOR: mysql
-      DB_ADDR: keycloak-db
-      DB_PORT: 3306
-      DB_DATABASE: keycloak
-      DB_USER: keycloakuser
-      DB_PASSWORD: keycloakpassword
-      KEYCLOAK_COOKIE_SECURE: false
-      KEYCLOAK_COOKIE_SAMESITE: "None"
-      KC_HOSTNAME_STRICT: false
-      KC_HTTP_ENABLED: true
-    ports:
-      - "8080:8080"
-    depends_on:
-      - keycloak-db
-    networks:
-      - backend
-    restart: always
-    command:
-      - start-dev
-
 networks:
   backend:
     driver: bridge
 
 volumes:
   db_data:
-  keycloak_db_data:
